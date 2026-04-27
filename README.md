@@ -59,3 +59,19 @@ scrape_configs:
       - targets: ['localhost:9090']
 ```
 Grâce à cette configuration, un job nommé prometheus est créé. Celui-ci va scraper ses propres métriques (localhost:9090), les labelliser avec environment=lab, avec une fréquence de scrape de 10 secondes.
+
+Pour vérifier que cette configuration est bien appliquée, je vais utiliser la commande suivante pour lancer le conteneur :
+
+```bash
+sudo docker run -d \
+  --name prometheus \
+  -p 0.0.0.0:9090:9090 \
+  -v /home/ubuntu/prometheus.yml:/etc/prometheus/prometheus.yml \
+  prom/prometheus:latest \
+  --config.file=/etc/prometheus/prometheus.yml \
+  --web.enable-lifecycle \
+  --web.listen-address=0.0.0.0:9090
+```
+La capture d’écran ci-dessous indique que la configuration appliquée est bien prise en compte : 
+
+<img width="1900" height="497" alt="image" src="https://github.com/user-attachments/assets/9af067b6-86d8-42e9-b2ee-02d644e39b40" />
