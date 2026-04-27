@@ -36,3 +36,11 @@ time=2026-04-27T10:00:55.589Z level=INFO source=main.go:1434 msg="TSDB started"
 time=2026-04-27T10:00:55.589Z level=INFO source=main.go:1632 msg="Loading configuration file" filename=/etc/prometheus/prometheus.yml
 time=2026-04-27T10:00:55.589Z level=INFO source=main.go:1048 msg="TSDB retention updated" duration=15d size=0B percentage=0
 ```
+# Exercice 2 : Écrire votre premier prometheus.yml
+
+**Objectif :** Remplacer la configuration par défaut par votre propre prometheus.yml. Définir un intervalle de scrape global de 10s, un external label environment=lab, et recharger Prometheus sans le redémarrer.
+
+comme indiqué dans le TP, je vais arrêter le conteneur précédent grâce à cette commande :
+```bash
+docker rm -f prometheus
+```
