@@ -44,3 +44,18 @@ comme indiqué dans le TP, je vais arrêter le conteneur précédent grâce à c
 ```bash
 docker rm -f prometheus
 ```
+Ci-dessous, le contenu du fichier prometheus.yml :
+
+```bash
+global:
+  scrape_interval: 10s
+
+  external_labels:
+    environment: lab
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+```
+Grâce à cette configuration, un job nommé prometheus est créé. Celui-ci va scraper ses propres métriques (localhost:9090), les labelliser avec environment=lab, avec une fréquence de scrape de 10 secondes.
