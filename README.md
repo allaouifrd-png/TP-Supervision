@@ -104,6 +104,7 @@ Après avoir configuré le fichier prometheus.yml en y ajoutant le bloc ci-desso
     static_configs:
       - targets: ['192.168.1.90:9100']
 ```
+
 <img width="1885" height="685" alt="image" src="https://github.com/user-attachments/assets/8ac160a9-a855-45e3-9228-f6e4c784d3fc" />
 
 Note : J’utilise la commande ci-dessous pour recharger la configuration de Prometheus :
