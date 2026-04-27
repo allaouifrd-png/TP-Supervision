@@ -11,7 +11,7 @@ Récupération de l’image Prometheus (avec Docker) : sudo docker pull prom/pro
 Lancement du conteneur : 
 ```bash
 sudo docker run --name prometheus -d -p 0.0.0.0:9090:9090 prom/prometheus
-
+```
 Accès à l’interface web : https://192.168.1.90:9090
 
 Confirmation que la cible Prometheus est UP :
@@ -22,6 +22,7 @@ Exécuter docker logs prometheus et lire la ligne de démarrage qui annonce le r
 
 Ci-dessous les logs indiquant le demarrage du répertoire de stockage [à expliquer]: 
 
+```bash
 time=2026-04-27T10:00:55.585Z level=INFO source=main.go:1410 msg="Starting TSDB ..."
 time=2026-04-27T10:00:55.586Z level=INFO source=head.go:698 msg="Replaying on-disk memory mappable chunks if any" component=tsdb
 time=2026-04-27T10:00:55.586Z level=INFO source=head.go:784 msg="On-disk memory mappable chunks replay completed" component=tsdb duration=743ns
@@ -32,4 +33,4 @@ time=2026-04-27T10:00:55.589Z level=INFO source=main.go:1431 msg="filesystem inf
 time=2026-04-27T10:00:55.589Z level=INFO source=main.go:1434 msg="TSDB started"
 time=2026-04-27T10:00:55.589Z level=INFO source=main.go:1632 msg="Loading configuration file" filename=/etc/prometheus/prometheus.yml
 time=2026-04-27T10:00:55.589Z level=INFO source=main.go:1048 msg="TSDB retention updated" duration=15d size=0B percentage=0
-
+```
