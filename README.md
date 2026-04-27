@@ -22,7 +22,7 @@ Confirmation que la cible Prometheus est UP :
 
 Exécuter docker logs prometheus et lire la ligne de démarrage qui annonce le répertoire de stockage : 
 
-Ci-dessous les logs indiquant le demarrage du répertoire de stockage [à expliquer]: 
+Ci-dessous les logs indiquant le demarrage du répertoire de stockage : 
 
 ```bash
 time=2026-04-27T10:00:55.585Z level=INFO source=main.go:1410 msg="Starting TSDB ..."
@@ -105,3 +105,19 @@ Après avoir configuré le fichier prometheus.yml en y ajoutant le bloc ci-desso
       - targets: ['192.168.1.90:9100']
 ```
 <img width="1885" height="685" alt="image" src="https://github.com/user-attachments/assets/8ac160a9-a855-45e3-9228-f6e4c784d3fc" />
+
+Note : J’utilise la commande ci-dessous pour recharger la configuration de Prometheus :
+
+```bash
+curl -X POST http://localhost:9090/-/reload
+```
+
+La requête ci-dessous, exécutée sur Prometheus, me retourne bien un résultat :
+
+```bash
+node_cpu_seconds_total
+```
+
+<img width="1863" height="443" alt="image" src="https://github.com/user-attachments/assets/1268db53-7892-49a1-87f0-750aedd541f8" />
+
+Cette métrique est fournie par node-exporter et indique le temps CPU cumulé en secondes. Voir s’il est possible de rendre cette métrique plus lisible (pas obligatoire).
