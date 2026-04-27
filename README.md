@@ -97,3 +97,11 @@ La capture ci-dessous indique que le conteneur node-exporter est bien lancé :
 
 <img width="1298" height="77" alt="image" src="https://github.com/user-attachments/assets/9e84a39f-8a62-4add-81fb-4e8cd8645693" />
 
+Après avoir configuré le fichier prometheus.yml en y ajoutant le bloc ci-dessous, node-exporter apparaît bien dans les targets et est indiqué comme UP: 
+
+```bash
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['192.168.1.90:9100']
+```
+<img width="1885" height="685" alt="image" src="https://github.com/user-attachments/assets/8ac160a9-a855-45e3-9228-f6e4c784d3fc" />
