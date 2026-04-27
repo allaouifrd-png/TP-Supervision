@@ -80,3 +80,20 @@ curl -X POST http://localhost:9090/-/reload
 La capture d’écran ci-dessous indique que la configuration appliquée est bien prise en compte : 
 
 <img width="1900" height="497" alt="image" src="https://github.com/user-attachments/assets/9af067b6-86d8-42e9-b2ee-02d644e39b40" />
+
+# Exercice 3 : Ajouter node_exporter et scraper les métriques système
+
+**Objectif :** Lancer node_exporter et configurer Prometheus pour le scraper. Vérifier que la métrique node_cpu_seconds_total apparaît dans l'expression browser.
+
+Comme indiqué dans le TP, à l’aide de cette commande, je vais lancer le conteneur node-exporter : 
+
+```bash
+docker run -d \
+  --name node-exporter \
+  -p 9100:9100 \
+  prom/node-exporter:latest
+```
+La capture ci-dessous indique que le conteneur node-exporter est bien lancé :
+
+<img width="1298" height="77" alt="image" src="https://github.com/user-attachments/assets/9e84a39f-8a62-4add-81fb-4e8cd8645693" />
+
