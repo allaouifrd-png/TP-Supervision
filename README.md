@@ -8,11 +8,13 @@ Comme indiqué dans le TP, je vais suivre les étapes indiquées pour installer 
 
 Récupération de l’image Prometheus (avec Docker) : sudo docker pull prom/prometheus:latest
 
-Lancement du conteneur : sudo docker run --name prometheus -d -p 0.0.0.0:9090:9090 prom/prometheus
+Lancement du conteneur : 
+```bash
+sudo docker run --name prometheus -d -p 0.0.0.0:9090:9090 prom/prometheus
 
 Accès à l’interface web : https://192.168.1.90:9090
 
-Confirmation que la cible Prometheus est UP : [Inserer capture 1]
+Confirmation que la cible Prometheus est UP :
 
 <img width="1887" height="348" alt="image" src="https://github.com/user-attachments/assets/69477fcb-a9cf-43ca-8582-fdb73aadafcb" />
 
