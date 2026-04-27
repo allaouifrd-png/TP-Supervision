@@ -72,6 +72,11 @@ sudo docker run -d \
   --web.enable-lifecycle \
   --web.listen-address=0.0.0.0:9090
 ```
+Explique ces lignes :  
+--web.enable-lifecycle \
+--web.listen-address=0.0.0.0:9090
+curl -X POST http://localhost:9090/-/reload
+
 La capture d’écran ci-dessous indique que la configuration appliquée est bien prise en compte : 
 
 <img width="1900" height="497" alt="image" src="https://github.com/user-attachments/assets/9af067b6-86d8-42e9-b2ee-02d644e39b40" />
