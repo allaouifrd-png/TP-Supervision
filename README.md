@@ -6,8 +6,10 @@
 
 Comme indiqué dans le TP, je vais suivre les étapes indiquées pour installer Prometheus et accéder à l’interface web sur le port 9090. Ci-dessous, les commandes que j’ai utilisées :
 
-Récupération de l’image Prometheus (avec Docker) : sudo docker pull prom/prometheus:latest
-
+Récupération de l’image Prometheus (avec Docker) : 
+```bash
+sudo docker pull prom/prometheus:latest
+```
 Lancement du conteneur : 
 ```bash
 sudo docker run --name prometheus -d -p 0.0.0.0:9090:9090 prom/prometheus
