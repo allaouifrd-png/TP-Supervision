@@ -140,7 +140,7 @@ nano sd/targets.json
 
 [
   {
-    "targets": ["172.17.0.1:9100"],
+    "targets": ["172.17.0.1:9100", "8.8.8.8:9100"],
     "labels": {
       "job": "node"
     }
