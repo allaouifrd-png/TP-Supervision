@@ -289,6 +289,9 @@ Dans Status > Rule Health, on peut voir que le groupe de règles api_rules a bie
 
 <img width="1898" height="412" alt="image" src="https://github.com/user-attachments/assets/6c539b49-6b99-4c80-912f-808c85582762" />
 
+Grâce à cet exercice, j'ai pu découvrir le fonctionnement des règles d'enregistrement dans Prometheus. J'ai constaté qu'il était possible de pré-calculer certaines requêtes utilisées régulièrement afin d'enregistrer leur résultat comme une nouvelle métrique. Cela permet d'éviter de recalculer la même requête à chaque fois, ce qui améliore les performances de Prometheus et rend l'affichage des données plus rapide dans les tableaux de bord.
+
+
 
 
 
