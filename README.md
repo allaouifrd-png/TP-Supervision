@@ -154,8 +154,6 @@ La configuration statique est celle que j'ai commentée pour la remplacer par ce
 
 Pour m'assurer que Prometheus lit bien le fichier targets.json, j'ai retiré puis remis le conteneur Prometheus en montant le volume /home/Ubuntu/sd dans le conteneur sur /etc/prometheus/sd.
 
-<img width="513" height="261" alt="image" src="https://github.com/user-attachments/assets/19d8df45-aea2-429e-af74-76c8debcd3b7" />
-
 Les deux endpoints spécifiés dans le fichier "file_sd_configs" sont bien visibles sur Prometheus.
 
 ```bash
