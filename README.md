@@ -127,30 +127,32 @@ Cette métrique est fournie par node-exporter et indique le temps CPU cumulé en
 
 **Objectif :** Remplacer les static_configs par un mécanisme de découverte. Sous Docker, utiliser la découverte par fichier ; sous Kubernetes, utiliser kubernetes_sd_configs avec un ServiceMonitor ou un bloc de découverte brut.
 
-Étapes
+Créer un fichier targets.json contenant deux endpoints
 
-15.	Créer un fichier targets.json contenant deux endpoints
+Pour réaliser cela, j'ai créé un répertoire sd dans lequel j'ai placé le fichier targets.json. Ci-dessous figure le contenu du fichier targets.json. Deux endpoints y sont spécifiés : 172.17.0.1:9001 et 8.8.8.8:9100.
 
-Pour réaliser cela, j'ai crée un répertoire sd dans lequel j'ai placer le fichier targets.json. Ci-dessous, le contenu du fichier targets.json
+<img width="377" height="77" alt="image" src="https://github.com/user-attachments/assets/73b8d6ec-f350-4174-8e90-58a55375417c" />
 
 <img width="657" height="206" alt="image" src="https://github.com/user-attachments/assets/876e04dc-11a6-4e53-a9ac-82049f3fb0c5" />
 
-17.	Remplacer les static_configs d'un job par file_sd_configs pointant vers /etc/prometheus/sd/*.json
+Remplacer les static_configs d'un job par file_sd_configs pointant vers /etc/prometheus/sd/*.json
 
-La configuration statique est celle que j'ai commenté, pour la remplacer par la configuration en dessous : 
+La configuration statique est celle que j'ai commentée pour la remplacer par celle qui se trouve juste en dessous. Cette dernière lit les endpoints spécifiés dans le fichier targets.json. Un rafraîchissement toutes les 5 secondes a été mis en place dans le cadre de ce lab pour observer rapidement le résultat de la configuration.
+
+Pour m'assurer que Prometheus lit bien le fichier targets.json, j'ai retiré puis remis le conteneur Prometheus en montant le volume /home/Ubuntu/sd dans le conteneur sur /etc/prometheus/sd.
 
 <img width="513" height="261" alt="image" src="https://github.com/user-attachments/assets/19d8df45-aea2-429e-af74-76c8debcd3b7" />
 
+Les deux endpoints spécifiés dans le fichier "file_sd_configs" sont bien visibles sur Prometheus.
 
-La target spécifié dans le fichier "file_sd_configs" est bien visible sur Prometheus 
+<img width="1896" height="542" alt="image" src="https://github.com/user-attachments/assets/48e9bc05-7ccb-4ab3-899c-ac0226212cd5" />
+
+Ajouter ou retirer une cible du JSON et confirmer que Prometheus la prend en compte sans rechargement
+
+Après avoir retiré la cible 8.8.8.8:9100 du fichier targets.json, Prometheus la prend en compte 5 secondes après, sans que je recharge la configuration.
 
 <img width="1891" height="506" alt="image" src="https://github.com/user-attachments/assets/245af315-d8b8-440c-bec1-a272542ee8f4" />
 
-18.	Ajouter ou retirer une cible du JSON et confirmer que Prometheus la prend en compte sans rechargement
-
-Après avoir ajouté une cible dans le fichier JSON Prometheus le prend sans en compte sans rechargement de la configuration.
-
-<img width="1896" height="542" alt="image" src="https://github.com/user-attachments/assets/48e9bc05-7ccb-4ab3-899c-ac0226212cd5" />
 
 
 
