@@ -139,7 +139,7 @@ nano sd/targets.json
 ```bash
 [
   {
-    "targets": ["172.17.0.1:9100, "8.8.8.8:9100""],
+    "targets": ["172.17.0.1:9100, "8.8.8.8:9100"],
     "labels": {
       "job": "node"
     }
@@ -149,11 +149,21 @@ nano sd/targets.json
 
 Remplacer les static_configs d'un job par file_sd_configs pointant vers /etc/prometheus/sd/*.json
 
-La configuration statique est celle que j'ai commentée pour la remplacer par celle qui se trouve juste en dessous. Cette dernière lit les endpoints spécifiés dans le fichier targets.json. Un rafraîchissement toutes les 5 secondes a été mis en place dans le cadre de ce lab pour observer rapidement le résultat de la configuration.
-
 Pour m'assurer que Prometheus lit bien le fichier targets.json, j'ai retiré puis remis le conteneur Prometheus en montant le volume /home/Ubuntu/sd dans le conteneur sur /etc/prometheus/sd.
 
+```bash
+sudo docker run --name prometheus -d \
+  -p 0.0.0.0:9090:9090 \
+  -v /home/ubuntu/prometheus.yml:/etc/prometheus/prometheus.yml \
+  -v /home/ubuntu/sd:/etc/prometheus/sd \
+  prom/prometheus \
+  --config.file=/etc/prometheus/prometheus.yml
+```
 Les deux endpoints spécifiés dans le fichier "file_sd_configs" sont bien visibles sur Prometheus.
+
+<img width="1912" height="547" alt="image" src="https://github.com/user-attachments/assets/9b2c12f1-cfa5-4e8d-9fba-712980103a04" />
+
+La configuration statique est celle que j'ai commentée pour la remplacer par celle qui se trouve juste en dessous. Cette dernière lit les endpoints spécifiés dans le fichier targets.json. Un rafraîchissement toutes les 5 secondes a été mis en place dans le cadre de ce lab pour observer rapidement le résultat de la configuration.
 
 ```bash
 #  - job_name: 'node'
@@ -171,7 +181,10 @@ Ajouter ou retirer une cible du JSON et confirmer que Prometheus la prend en com
 
 Après avoir retiré la cible 8.8.8.8:9100 du fichier targets.json, Prometheus la prend en compte 5 secondes après, sans que je recharge la configuration.
 
-<img width="1891" height="506" alt="image" src="https://github.com/user-attachments/assets/245af315-d8b8-440c-bec1-a272542ee8f4" />
+<img width="1910" height="360" alt="image" src="https://github.com/user-attachments/assets/6022c0ac-7d86-4ee2-b06d-016a96884e27" />
+
+Grâce à cet exercice, j'ai pu voir qu'il est possible, via un fichier de configuration, de mettre à disposition des cibles et qu'elles soient découvertes par Prometheus de manière automatique, sans qu'il soit nécessaire de recharger la configuration.
+
 
 
 
