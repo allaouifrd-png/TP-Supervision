@@ -158,7 +158,17 @@ Pour m'assurer que Prometheus lit bien le fichier targets.json, j'ai retiré pui
 
 Les deux endpoints spécifiés dans le fichier "file_sd_configs" sont bien visibles sur Prometheus.
 
-<img width="1896" height="542" alt="image" src="https://github.com/user-attachments/assets/48e9bc05-7ccb-4ab3-899c-ac0226212cd5" />
+```bash
+#  - job_name: 'node'
+#    static_configs:
+#      - targets: ['192.168.1.90:9100']
+
+  - job_name: 'node'
+    file_sd_configs:
+      - files:
+          - /etc/prometheus/sd/*.json
+        refresh_interval: 5s
+```
 
 Ajouter ou retirer une cible du JSON et confirmer que Prometheus la prend en compte sans rechargement
 
