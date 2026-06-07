@@ -119,7 +119,7 @@ La requête ci-dessous, exécutée sur Prometheus, me retourne bien un résultat
 node_cpu_seconds_total
 ```
 
-<img width="1863" height="443" alt="image" src="https://github.com/user-attachments/assets/1268db53-7892-49a1-87f0-750aedd541f8" />
+<img width="1871" height="526" alt="image" src="https://github.com/user-attachments/assets/7f2afcbe-614c-4ba6-b213-0c0f889eea7e" />
 
 Cette métrique est fournie par node-exporter et indique le temps CPU cumulé en secondes. Voir s’il est possible de rendre cette métrique plus lisible (pas obligatoire).
 
@@ -128,10 +128,30 @@ Cette métrique est fournie par node-exporter et indique le temps CPU cumulé en
 **Objectif :** Remplacer les static_configs par un mécanisme de découverte. Sous Docker, utiliser la découverte par fichier ; sous Kubernetes, utiliser kubernetes_sd_configs avec un ServiceMonitor ou un bloc de découverte brut.
 
 Étapes
+
 15.	Créer un fichier targets.json contenant deux endpoints
-16.	Le monter sur /etc/prometheus/sd/targets.json
+
+Pour réaliser cela, j'ai crée un répertoire sd dans lequel j'ai placer le fichier targets.json. Ci-dessous, le contenu du fichier targets.json
+
+<img width="657" height="206" alt="image" src="https://github.com/user-attachments/assets/876e04dc-11a6-4e53-a9ac-82049f3fb0c5" />
+
 17.	Remplacer les static_configs d'un job par file_sd_configs pointant vers /etc/prometheus/sd/*.json
+
+La configuration statique est celle que j'ai commenté, pour la remplacer par la configuration en dessous : 
+
+<img width="513" height="261" alt="image" src="https://github.com/user-attachments/assets/19d8df45-aea2-429e-af74-76c8debcd3b7" />
+
+
+La target spécifié dans le fichier "file_sd_configs" est bien visible sur Prometheus 
+
+<img width="1891" height="506" alt="image" src="https://github.com/user-attachments/assets/245af315-d8b8-440c-bec1-a272542ee8f4" />
+
 18.	Ajouter ou retirer une cible du JSON et confirmer que Prometheus la prend en compte sans rechargement
+
+Après avoir ajouté une cible dans le fichier JSON Prometheus le prend sans en compte sans rechargement de la configuration.
+
+<img width="1896" height="542" alt="image" src="https://github.com/user-attachments/assets/48e9bc05-7ccb-4ab3-899c-ac0226212cd5" />
+
 
 
 
