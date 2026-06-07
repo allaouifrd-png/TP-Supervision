@@ -185,19 +185,19 @@ Après avoir retiré la cible 8.8.8.8:9100 du fichier targets.json, Prometheus l
 
 Grâce à cet exercice, j'ai pu voir qu'il est possible, via un fichier de configuration, de mettre à disposition des cibles et qu'elles soient découvertes par Prometheus de manière automatique, sans qu'il soit nécessaire de recharger la configuration.
 
-Exercice 5 : Règles d'enregistrement (recording rules)
+# Exercice 5 : Règles d'enregistrement (recording rules)
 
-Objectif
-Pré-calculer une requête coûteuse sous forme de règle d'enregistrement. Créer un fichier de règles qui enregistre job:http_requests:rate5m toutes les 30 secondes.
+**Objectif :** Pré-calculer une requête coûteuse sous forme de règle d'enregistrement. Créer un fichier de règles qui enregistre job:http_requests:rate5m toutes les 30 secondes.
 
-Après avoir copier le répertoir fournis dans le cadre de ce TP, je me suis rendu de ce répertoir et ai contruit l'image docker demo-api 
+Après avoir copié le répertoire fourni dans le cadre de ce TP, je me suis rendu dans ce répertoire et ai construit l'image Docker demo-api.
+
 ```bash
 cd /app
 ```
 ```bash
 sudo docker build -t demo-api:1.0 .
 ```
-Une fois l'image construite, je l'ai lancé 
+Une fois l'image construite, je l'ai lancée.
 
 ```bash
 sudo docker run -d \
@@ -205,17 +205,16 @@ sudo docker run -d \
   -p 8000:8000 \
   demo-api:1.0
 ```
-
-Ensuite, j'ai executer le scripte fournis 
+Ensuite, j'ai exécuté le script fourni.
 
 ```bash
 cd /app/traffic.sh
 chmod +x traffic.sh
 ./traffic.sh
 ```
-L'objectif et de généré des requêste HTTP afin qu"elle soit vu par Prometheus. 
+L'objectif est de générer des requêtes HTTP afin qu'elles soient vues par Prometheus.
 
-Ensuite, j'ai spéficié demo-api dans le fichier targets.json pour qu'il soit vu par prometheus 
+Ensuite, j'ai spécifié demo-api dans le fichier targets.json pour qu'il soit vu par Prometheus.
 
 ```bash
 [
@@ -234,7 +233,7 @@ Ensuite, j'ai spéficié demo-api dans le fichier targets.json pour qu'il soit v
 ]
 ```
 
-J'ai crréer le réperpoure qui contiendra la règles 
+J'ai créé le répertoire qui contiendra la règle.
 
 ```bash
 mkdir -p ~/rules
@@ -248,7 +247,9 @@ groups:
       - record: job:http_requests:rate5m
         expr: rate(demo_http_requests_total[5m])
 ```
-Dans prometheus.yml j'ai ajouter le repertpiuit que je viens de cérer 
+
+Dans prometheus.yml, j'ai ajouté le répertoire que je viens de créer.
+
 ```bash
 global:
   scrape_interval: 10s
@@ -271,7 +272,7 @@ scrape_configs:
         refresh_interval: 5s
 ```
 
-Ensuite j'ai lancer docker en monytant le volume incluant le fichier de configuration prometheus qui inclus la règle 
+Ensuite, j'ai lancé Docker en montant le volume incluant le fichier de configuration Prometheus qui inclut la règle.
 
 ```bash
 sudo docker run -d \
