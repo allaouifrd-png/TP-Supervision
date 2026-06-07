@@ -100,7 +100,7 @@ La capture ci-dessous indique que le conteneur node-exporter est bien lancé :
 Après avoir configuré le fichier prometheus.yml en y ajoutant le bloc ci-dessous, node-exporter apparaît bien dans les targets et est indiqué comme UP: 
 
 ```bash
-  - job_name: 'node-exporter'
+  - job_name: 'node'
     static_configs:
       - targets: ['192.168.1.90:9100']
 ```
@@ -122,3 +122,16 @@ node_cpu_seconds_total
 <img width="1863" height="443" alt="image" src="https://github.com/user-attachments/assets/1268db53-7892-49a1-87f0-750aedd541f8" />
 
 Cette métrique est fournie par node-exporter et indique le temps CPU cumulé en secondes. Voir s’il est possible de rendre cette métrique plus lisible (pas obligatoire).
+
+# Exercice 4 : Découverte de service : par fichier ou Kubernetes
+
+**Objectif :** Remplacer les static_configs par un mécanisme de découverte. Sous Docker, utiliser la découverte par fichier ; sous Kubernetes, utiliser kubernetes_sd_configs avec un ServiceMonitor ou un bloc de découverte brut.
+
+Étapes
+15.	Créer un fichier targets.json contenant deux endpoints
+16.	Le monter sur /etc/prometheus/sd/targets.json
+17.	Remplacer les static_configs d'un job par file_sd_configs pointant vers /etc/prometheus/sd/*.json
+18.	Ajouter ou retirer une cible du JSON et confirmer que Prometheus la prend en compte sans rechargement
+
+
+
