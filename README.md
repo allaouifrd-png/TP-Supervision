@@ -185,6 +185,108 @@ Après avoir retiré la cible 8.8.8.8:9100 du fichier targets.json, Prometheus l
 
 Grâce à cet exercice, j'ai pu voir qu'il est possible, via un fichier de configuration, de mettre à disposition des cibles et qu'elles soient découvertes par Prometheus de manière automatique, sans qu'il soit nécessaire de recharger la configuration.
 
+Exercice 5 : Règles d'enregistrement (recording rules)
+
+Objectif
+Pré-calculer une requête coûteuse sous forme de règle d'enregistrement. Créer un fichier de règles qui enregistre job:http_requests:rate5m toutes les 30 secondes.
+
+Après avoir copier le répertoir fournis dans le cadre de ce TP, je me suis rendu de ce répertoir et ai contruit l'image docker demo-api 
+```bash
+cd /app
+```
+```bash
+sudo docker build -t demo-api:1.0 .
+```
+Une fois l'image construite, je l'ai lancé 
+
+```bash
+sudo docker run -d \
+  --name demo-api \
+  -p 8000:8000 \
+  demo-api:1.0
+```
+
+Ensuite, j'ai executer le scripte fournis 
+
+```bash
+cd /app/traffic.sh
+chmod +x traffic.sh
+./traffic.sh
+```
+L'objectif et de généré des requêste HTTP afin qu"elle soit vu par Prometheus. 
+
+Ensuite, j'ai spéficié demo-api dans le fichier targets.json pour qu'il soit vu par prometheus 
+
+```bash
+[
+  {
+    "targets": ["172.17.0.1:9100"],
+    "labels": {
+      "job": "node"
+    }
+  },
+  {
+    "targets": ["172.17.0.4:8000"],
+    "labels": {
+      "job": "demo-api"
+    }
+  }
+]
+```
+
+J'ai crréer le réperpoure qui contiendra la règles 
+
+```bash
+mkdir -p ~/rules
+
+nano /rules/api_rules.yml
+
+groups:
+  - name: api_rules
+    interval: 30s
+    rules:
+      - record: job:http_requests:rate5m
+        expr: rate(demo_http_requests_total[5m])
+```
+Dans prometheus.yml j'ai ajouter le repertpiuit que je viens de cérer 
+```bash
+global:
+  scrape_interval: 10s
+
+  external_labels:
+    environment: lab
+
+rule_files:
+  - "/etc/prometheus/rules/*.yml"
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'node'
+    file_sd_configs:
+      - files:
+          - /etc/prometheus/sd/*.json
+        refresh_interval: 5s
+```
+
+Ensuite j'ai lancer docker en monytant le volume incluant le fichier de configuration prometheus qui inclus la règle 
+
+```bash
+sudo docker run -d \
+  --name prometheus \
+  -p 9090:9090 \
+  -v /home/ubuntu/prometheus.yml:/etc/prometheus/prometheus.yml \
+  -v /home/ubuntu/sd:/etc/prometheus/sd \
+  -v /home/ubuntu/rules:/etc/prometheus/rules \
+  prom/prometheus
+```
+<img width="1905" height="786" alt="image" src="https://github.com/user-attachments/assets/7c260ef5-4657-478b-abea-00727053cb8d" />
+
+Dans Status > Rule Health, on peut voir que le groupe de règles api_rules a bien été chargé par Prometheus. La règle job:http_requests:rate5m est exécutée toutes les 30 secondes et son état est OK, ce qui confirme que le fichier api_rules.yml est correctement pris en compte et que la requête est évaluée.
+
+<img width="1898" height="412" alt="image" src="https://github.com/user-attachments/assets/6c539b49-6b99-4c80-912f-808c85582762" />
 
 
 
