@@ -131,9 +131,22 @@ Créer un fichier targets.json contenant deux endpoints
 
 Pour réaliser cela, j'ai créé un répertoire sd dans lequel j'ai placé le fichier targets.json. Ci-dessous figure le contenu du fichier targets.json. Deux endpoints y sont spécifiés : 172.17.0.1:9001 et 8.8.8.8:9100.
 
-<img width="377" height="77" alt="image" src="https://github.com/user-attachments/assets/73b8d6ec-f350-4174-8e90-58a55375417c" />
+```bash
+mkdir -p sd
+nano sd/targets.json
+```
 
-<img width="657" height="206" alt="image" src="https://github.com/user-attachments/assets/876e04dc-11a6-4e53-a9ac-82049f3fb0c5" />
+```bash
+
+[
+  {
+    "targets": ["172.17.0.1:9100"],
+    "labels": {
+      "job": "node"
+    }
+  }
+]
+```
 
 Remplacer les static_configs d'un job par file_sd_configs pointant vers /etc/prometheus/sd/*.json
 
