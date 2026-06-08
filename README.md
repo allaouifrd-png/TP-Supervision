@@ -351,11 +351,12 @@ groups:
   - name: api_alerts
     rules:
       - alert: HighErrorRate
-        expr: (
-          sum(rate(demo_http_requests_total{status=~"5.."}[2m]))
-          /
-          sum(rate(demo_http_requests_total[2m]))
-        ) > 0.05
+        expr: |
+          (
+            sum(rate(demo_http_requests_total{status=~"5.."}[2m]))
+            /
+            sum(rate(demo_http_requests_total[2m]))
+          ) > 0.05
         for: 2m
         labels:
           severity: warning
