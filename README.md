@@ -295,13 +295,13 @@ Grâce à cet exercice, j'ai pu découvrir le fonctionnement des règles d'enreg
 
 **Objectif :** Définir une alerte qui se déclenche lorsque le taux d'erreur de demo-api dépasse 5 % pendant 2 minutes, la router vers Alertmanager, puis observer l'alerte qui se déclenche.
 
-Pour réaliser cette exercie, dans un premier temps, j'ai crée un répertoire altertmanager  dans le lequel je vais placer mon fichier de configuration alertmanager.yml 
+Pour réaliser cet exercice, dans un premier temps, j'ai créé un répertoire alertmanager dans lequel je vais placer mon fichier de configuration alertmanager.yml.
 
 ```bash
 mkdir -p /alertmanager
 nano /alertmanager/alertmanager.yml
 ```
-Dans le fichier alertmanager.yml j'ai inclus le contenu ci dessous :
+Dans le fichier alertmanager.yml, j'ai inclus le contenu ci-dessous :
 
 ```bash
 route:
@@ -310,9 +310,9 @@ route:
 receivers:
   - name: "default"
 ```
-La directive route définit le chemin pour savoir où envoyer une alerte et receiver est la liste des destinations spécifiée.
+La directive route définit le chemin pour savoir où envoyer une alerte et receiver est la liste des destinations spécifiées.
 
-Ensuite, je vais lancer le conteneur Alertmanager via cette commande tout en veillant a monter le volume contennat mon fichier de configuration alertmanager précédement créer : 
+Ensuite, je vais lancer le conteneur Alertmanager via cette commande tout en veillant à monter le volume contenant mon fichier de configuration Alertmanager précédemment créé : 
 
 ```bash
 sudo docker run -d \
@@ -322,7 +322,7 @@ sudo docker run -d \
   prom/alertmanager
 ```
 
-Dans le fichier Prometheus.yml, je vais ajouter Alertmanager voici les éléments à saisir : 
+Dans le fichier prometheus.yml, je vais ajouter Alertmanager. Voici les éléments à saisir :
 
 ```bash
 alerting:
@@ -332,14 +332,14 @@ alerting:
             - "172.17.0.1:9093"
 ```
 
-Ceci permettra de connecter Alertmanager et Prometheus et les alertes relevé sur Prometheus seront transmis à Alertmanager.
+Ceci permettra de connecter Alertmanager à Prometheus et les alertes relevées sur Prometheus seront transmises à Alertmanager.
 
-Une fois Alertmanager connecté à Prometheus, je vais crére un fichier d'alertes grâce à cette commande : 
+Une fois Alertmanager connecté à Prometheus, je vais créer un fichier d'alertes grâce à cette commande :
 
 ```bash
 nano ~/rules/api_alerts.yml
 ```
-et y inclure le contenu suivant : 
+et y inclure le contenu suivant :
 
 ```bash
 groups:
@@ -358,16 +358,16 @@ groups:
           summary: "Taux d'erreur élevé"
           description: "Le taux d'erreur dépasse 5% depuis plus de 2 minutes."
 ```
-Cette règle permet de surveiller le taux d'erreur de notre application demo-api et d'emettre une alertes si 5% d'erreurs sont detecté en continu pendant au moins 2 minutes.
+Cette règle permet de surveiller le taux d'erreur de notre application demo-api et d'émettre une alerte si 5 % d'erreurs sont détectées en continu pendant au moins 2 minutes.
 
-Ensuite, je vais redemarrer le conteneur prometheus pour que la configuration appliquée puisse être rechargé : 
+Ensuite, je vais redémarrer le conteneur Prometheus pour que la configuration appliquée puisse être rechargée : 
 
 ```bash
 sudo docker restart prometheus
 ```
-Sur l'iunterface Prometheus, je vois que l'alerte créer est bien prise en compte : 
+Sur l'interface Prometheus, je vois que l'alerte créée est bien prise en compte.
 
-Après avoir executer le script traffic.sh dans la section Alerts je vois bien les taux d'erreurs qui remonte avec le flag HighErrorRate 
+Après avoir exécuté le script traffic.sh, dans la section Alerts, je vois bien les taux d'erreur qui remontent avec le flag HighErrorRate.
 
 24.	Lancer un conteneur Alertmanager (prom/alertmanager) sur le port 9093
 25.	Créer alerts/api_alerts.yml avec une alerte HighErrorRate
