@@ -299,7 +299,8 @@ Pour réaliser cet exercice, dans un premier temps, j'ai créé un répertoire a
 
 ```bash
 mkdir -p /alertmanager
-nano /alertmanager/alertmanager.yml
+cd alertemanager 
+nano alertmanager.yml
 ```
 Dans le fichier alertmanager.yml, j'ai inclus le contenu ci-dessous :
 
