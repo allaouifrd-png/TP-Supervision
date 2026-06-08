@@ -330,9 +330,13 @@ alerting:
   alertmanagers:
     - static_configs:
         - targets:
-            - "172.17.0.1:9093"
+            - "172.17.0.2:9093"
 ```
+Note : Cette commande me permet d'avoir l'ip exacte du conteneur Alertmanager : 
 
+```bash
+sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' alertmanager
+```
 Ceci permettra de connecter Alertmanager à Prometheus et les alertes relevées sur Prometheus seront transmises à Alertmanager.
 
 Une fois Alertmanager connecté à Prometheus, je vais créer un fichier d'alertes grâce à cette commande :
