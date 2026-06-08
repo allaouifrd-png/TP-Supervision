@@ -373,14 +373,24 @@ sudo docker restart prometheus
 ```
 Sur l'interface Prometheus, je vois que l'alerte créée est bien prise en compte.
 
-Après avoir exécuté le script traffic.sh, dans la section Alerts, je vois bien les taux d'erreur qui remontent avec le flag HighErrorRate.
+<img width="1902" height="627" alt="image" src="https://github.com/user-attachments/assets/2af4ae73-3b97-4fe9-a7af-535605a67ce6" />
 
-24.	Lancer un conteneur Alertmanager (prom/alertmanager) sur le port 9093
-25.	Créer alerts/api_alerts.yml avec une alerte HighErrorRate
-26.	Ajouter le fichier dans rule_files de prometheus.yml
-27.	Dans prometheus.yml, ajouter alerting.alertmanagers pointant vers alertmanager:9093
-28.	Recharger Prometheus puis injecter des erreurs dans demo-api pour déclencher l'alerte
-29.	Ouvrir l'interface Alertmanager sur http://localhost:9093
+Après avoir exécuté le script traffic.sh, dans la section Alerts, je vois bien les taux d'erreur qui remontent avec le flag Pending.
+
+<img width="1898" height="783" alt="image" src="https://github.com/user-attachments/assets/def33925-6a0c-407b-9c98-b99dc2aba663" />
+
+Sur cette capture d'écran, on peut voir que le taux d'erreur a bien dépassé les 5 % (6,22 %), mais le système attend 2 minutes pour vérifier si le problème persiste. Si le problème persiste encore au-delà de ces 2 minutes, l'alerte se déclenchera pour de bon, aura le flag Firing et sera envoyée à Alertmanager.
+
+Dans la capture ci-dessous, nous pouvons voir que la condition de taux d'erreur de 5 % durant une période de 2 minutes est dépassée ; l'alerte possède désormais le flag Firing et est envoyée vers Alertmanager : 
+
+<img width="1895" height="788" alt="image" src="https://github.com/user-attachments/assets/4f528522-eeff-40dd-99f9-4cfc60165497" />
+
+Ci-dessous, l'alerte émise par Prometheus, présente sur Alertmanager, portant le nom HighErrorRate avec le label lab et la severity warning, ce qui correspond parfaitement aux éléments spécifiés dans les fichiers de configuration api_alerts.yml et prometheus.yml :
+
+<img width="1510" height="635" alt="image" src="https://github.com/user-attachments/assets/e4fc0834-7e49-48bf-bdf7-5ac0d866817b" />
+
+
+
 
 
 
