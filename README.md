@@ -389,8 +389,17 @@ Ci-dessous, l'alerte émise par Prometheus, présente sur Alertmanager, portant 
 
 <img width="1510" height="635" alt="image" src="https://github.com/user-attachments/assets/e4fc0834-7e49-48bf-bdf7-5ac0d866817b" />
 
+# Exercice 5 : PromQL - bases : vecteurs instantanés et vecteurs de plage
 
+**Objectif :** Mettre en pratique la différence entre un vecteur instantané, un vecteur de plage et un scalaire. Répondre aux questions à partir des métriques de demo-api.
 
+<img width="1878" height="370" alt="image" src="https://github.com/user-attachments/assets/4ebfa0ab-adde-4c3d-9891-feb0e9d8afcc" />
+
+<img width="1873" height="708" alt="image" src="https://github.com/user-attachments/assets/5aacbb53-d6d9-48f5-9dcd-473db1090b5e" />
+
+<img width="1875" height="357" alt="image" src="https://github.com/user-attachments/assets/e7609149-9f12-4c56-bba1-6c7e6ffc9fd3" />
+
+<img width="1873" height="278" alt="image" src="https://github.com/user-attachments/assets/d30bd4fd-542e-467a-8062-42169a04d823" />
 
 
 
