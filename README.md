@@ -389,7 +389,7 @@ Ci-dessous, l'alerte émise par Prometheus, présente sur Alertmanager, portant 
 
 <img width="1510" height="635" alt="image" src="https://github.com/user-attachments/assets/e4fc0834-7e49-48bf-bdf7-5ac0d866817b" />
 
-# Exercice 5 : PromQL - bases : vecteurs instantanés et vecteurs de plage
+# Exercice 6 : PromQL - bases : vecteurs instantanés et vecteurs de plage
 
 **Objectif :** Mettre en pratique la différence entre un vecteur instantané, un vecteur de plage et un scalaire. Répondre aux questions à partir des métriques de demo-api.
 
@@ -404,6 +404,8 @@ La requête demo_http_requests_total[1m] affiche une liste de plusieurs valeurs 
 La requête rate(demo_http_requests_total[1m]) affiche un taux d'environ 0,34 requête par seconde pour les requêtes réussies sur /api/users et /api/orders, et un taux de 0 pour les erreurs sur /api/orders. Je comprends donc que cette fonction rate analyse le vecteur de plage de la minute précédente pour en calculer la vitesse de progression moyenne. Dans mon cas, une valeur de 0,34 signifie qu'il y a environ une requête toutes les 3 secondes sur ces pages. 
 
 <img width="1875" height="357" alt="image" src="https://github.com/user-attachments/assets/e7609149-9f12-4c56-bba1-6c7e6ffc9fd3" />
+
+La requête scalar(sum(demo_http_requests_total)) affiche un chiffre unique qui, dans mon cas, est de 234. Cela signifie que toutes les requêtes ont été additionnées et que la fonction a transformé cela en nombre brut.
 
 <img width="1873" height="278" alt="image" src="https://github.com/user-attachments/assets/d30bd4fd-542e-467a-8062-42169a04d823" />
 
