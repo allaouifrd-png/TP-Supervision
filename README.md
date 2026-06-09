@@ -393,9 +393,15 @@ Ci-dessous, l'alerte émise par Prometheus, présente sur Alertmanager, portant 
 
 **Objectif :** Mettre en pratique la différence entre un vecteur instantané, un vecteur de plage et un scalaire. Répondre aux questions à partir des métriques de demo-api.
 
+La requête demo_http_requests_total renvoie 3 séries différentes avec une seule valeur pour chacune à l'instant T. Dans la capture ci-dessous, j'ai 18 requêtes réussies (status 200) sur /api/users, 16 requêtes réussies sur /api/orders et 1 requête en erreur (status 500) sur /api/orders. Il s'agit d'un vecteur instantané (instant vector), ce qui signifie que Prometheus prend une simple photo du compteur à un moment précis, sans historique.
+
 <img width="1878" height="370" alt="image" src="https://github.com/user-attachments/assets/4ebfa0ab-adde-4c3d-9891-feb0e9d8afcc" />
 
+La requête demo_http_requests_total[1m] affiche une liste de plusieurs valeurs chronologiques sur la dernière minute pour chaque série. Dans la capture ci-dessous, nous pouvons voir que pour les requêtes réussies sur /api/users, on voit le compteur grimper de 48, 58, 67, 78, 87 à 97 avec les horodatages précis. Dans ce cas, il s'agit d'un vecteur de plage, ce qui signifie que Prometheus ne donne plus une seule valeur mais plusieurs valeurs sur une période (dans mon cas, les 60 dernières secondes).
+
 <img width="1873" height="708" alt="image" src="https://github.com/user-attachments/assets/5aacbb53-d6d9-48f5-9dcd-473db1090b5e" />
+
+La requête rate(demo_http_requests_total[1m]) affiche un taux d'environ 0,34 requête par seconde pour les requêtes réussies sur /api/users et /api/orders, et un taux de 0 pour les erreurs sur /api/orders. Je comprends donc que cette fonction rate analyse le vecteur de plage de la minute précédente pour en calculer la vitesse de progression moyenne. Dans mon cas, une valeur de 0,34 signifie qu'il y a environ une requête toutes les 3 secondes sur ces pages. 
 
 <img width="1875" height="357" alt="image" src="https://github.com/user-attachments/assets/e7609149-9f12-4c56-bba1-6c7e6ffc9fd3" />
 
